@@ -1,99 +1,1398 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Airfinity 🌎</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Airfinity Travel — Travel That Understands You</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Space Grotesk', 'sans-serif'],
+            body: ['DM Sans', 'sans-serif'],
+          },
+          colors: {
+            midnight: '#0a0f1c',
+            deep: '#121829',
+            slate: '#1e2640',
+            cream: '#faf9f6',
+            teal: {
+              50: '#effcfc',
+              100: '#d7f6f6',
+              200: '#b4ebec',
+              300: '#80dbdd',
+              400: '#44c2c6',
+              500: '#28a7ad',
+              600: '#23858d',
+              700: '#236c73',
+              800: '#245a60',
+              900: '#224b50',
+            },
+            coral: '#e07a5f',
+            sage: '#84cc16',
+            gold: '#d4a373',
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    :root {
+      --bg: #0a0f1c;
+      --bg-elevated: #121829;
+      --fg: #faf9f6;
+      --fg-muted: #9ca3af;
+      --accent: #28a7ad;
+      --accent-light: #44c2c6;
+      --coral: #e07a5f;
+      --sage: #84cc16;
+      --gold: #d4a373;
+      --card: #1e2640;
+      --border: #2d3555;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      overflow-x: hidden;
+    }
+    
+    /* Typography Scale */
+    .font-display {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent);
+    }
+    
+    /* Animations */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(1deg); }
+    }
+    
+    @keyframes float-delayed {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-15px) rotate(-1deg); }
+    }
+    
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.05); }
+    }
+    
+    @keyframes slide-up {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes slide-in-left {
+      from {
+        opacity: 0;
+        transform: translateX(-40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes fade-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes tag-pop {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    @keyframes gradient-shift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .animate-float-delayed {
+      animation: float-delayed 7s ease-in-out infinite;
+      animation-delay: 1s;
+    }
+    
+    .animate-pulse-glow {
+      animation: pulse-glow 4s ease-in-out infinite;
+    }
+    
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+      .animate-float,
+      .animate-float-delayed,
+      .animate-pulse-glow {
+        animation: none;
+      }
+      .reveal,
+      .reveal-left {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+    
+    /* Hero background layers */
+    .hero-gradient {
+      background: 
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(40, 167, 173, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 80% 60%, rgba(224, 122, 95, 0.1) 0%, transparent 40%),
+        radial-gradient(ellipse 50% 30% at 20% 80%, rgba(132, 204, 22, 0.08) 0%, transparent 40%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-elevated) 100%);
+    }
+    
+    /* Noise texture overlay */
+    .noise-overlay::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+    }
+    
+    /* Floating cards */
+    .floating-card {
+      backdrop-filter: blur(12px);
+      background: rgba(30, 38, 64, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Feature cards */
+    .feature-card {
+      background: linear-gradient(135deg, rgba(30, 38, 64, 0.8) 0%, rgba(18, 24, 41, 0.9) 100%);
+      border: 1px solid var(--border);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent);
+      box-shadow: 0 20px 40px -12px rgba(40, 167, 173, 0.2);
+    }
+    
+    /* CTA Button */
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--coral) 100%);
+      background-size: 200% 200%;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+      background-position: 100% 0%;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px -8px rgba(40, 167, 173, 0.4);
+    }
+    
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.3s ease;
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--accent);
+    }
+    
+    /* Mobile mockup */
+    .phone-frame {
+      background: linear-gradient(145deg, #2a3150 0%, #1a2038 100%);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 
+        0 50px 100px -20px rgba(0, 0, 0, 0.5),
+        0 30px 60px -30px rgba(40, 167, 173, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+    
+    .phone-screen {
+      background: linear-gradient(180deg, #0f1525 0%, #0a0f1c 100%);
+    }
+    
+    /* Tag pills */
+    .tag {
+      backdrop-filter: blur(8px);
+      transition: all 0.2s ease;
+    }
+    
+    .tag:hover {
+      transform: scale(1.05);
+    }
+    
+    /* Section divider */
+    .section-divider {
+      background: linear-gradient(90deg, transparent 0%, var(--border) 50%, transparent 100%);
+      height: 1px;
+    }
+    
+    /* Focus states */
+    *:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    
+    /* Testimonial cards */
+    .testimonial-card {
+      background: linear-gradient(135deg, rgba(30, 38, 64, 0.6) 0%, rgba(18, 24, 41, 0.8) 100%);
+      border: 1px solid var(--border);
+    }
+    
+    /* Step number */
+    .step-number {
+      background: linear-gradient(135deg, var(--accent) 0%, rgba(40, 167, 173, 0.3) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    /* Grid pattern */
+    .grid-pattern {
+      background-image: 
+        linear-gradient(rgba(45, 53, 85, 0.3) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(45, 53, 85, 0.3) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+  </style>
 </head>
+
 <body>
-
-    <!-- Header -->
-    <header id="app-header" class="hidden">
-        <div class="logo">🌎 Airfinity</div>
-        <nav>
-            <span class="nav-link" onclick="app.showProfile()">Profile</span>
-            <span class="nav-link" onclick="app.showFeed()">Feed</span>
-        </nav>
-    </header>
-
-    <!-- Main Content -->
-    <main>
+  <!-- ======================= -->
+  <!-- NAVIGATION -->
+  <!-- ======================= -->
+  <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-2 group">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center transition-transform group-hover:scale-105">
+            <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <span class="font-display font-semibold text-xl text-cream">Airfinity</span>
+        </a>
         
-        <!-- SECTION: Onboarding (Flash Card Style) -->
-        <section id="onboarding">
-            <!-- Progress Bar (Fixed Top) -->
-            <div class="progress-track">
-                <div class="progress-fill" id="progress-fill"></div>
-            </div>
-
-            <!-- Card Container -->
-            <div id="card-container" class="card-enter">
-                <!-- Content injected via JS -->
-            </div>
-
-            <!-- Navigation Buttons (Fixed Bottom) -->
-            <div class="onboarding-nav">
-                <button id="btn-back" class="btn btn-ghost hidden" onclick="onboarding.prevStep()">Back</button>
-                <button id="btn-next" class="btn btn-primary" onclick="onboarding.nextStep()">Next</button>
-            </div>
-        </section>
-
-        <!-- SECTION: Feed (TikTok Style) -->
-        <section id="feed" class="hidden">
-            <!-- Feed items injected via JS -->
-        </section>
-
-        <!-- SECTION: Profile -->
-        <section id="profile" class="hidden">
-            <div class="profile-header">
-                <div class="avatar" id="profile-avatar">?</div>
-                <h2 id="profile-name">User</h2>
-                <p class="text-muted">Traveler Profile</p>
-            </div>
-            
-            <div class="profile-section">
-                <h3>My Preferences</h3>
-                <div id="profile-prefs" class="pref-list"></div>
-            </div>
-
-            <div class="profile-section">
-                <h3>Saved Locations</h3>
-                <div id="profile-saved" class="saved-list">
-                    <p class="text-muted">No saved locations yet.</p>
-                </div>
-            </div>
-            
-            <button class="btn btn-danger btn-block" onclick="app.resetApp()">Reset Profile</button>
-        </section>
-
-    </main>
-
-    <!-- Details Modal -->
-    <div id="modal">
-        <div class="modal-content">
-            <div class="modal-hero">
-                <img src="" alt="" class="modal-img" id="modal-img">
-                <button class="modal-close" onclick="app.closeModal()">✕</button>
-            </div>
-            <div class="modal-body">
-                <h2 id="modal-title">Location Name</h2>
-                <div class="match-badge" id="modal-score">95% Match</div>
-                <p id="modal-desc" class="text-muted">Description...</p>
-                
-                <div id="modal-tags" class="feed-tags"></div>
-
-                <div style="margin-top: 30px;">
-                    <button class="btn btn-primary btn-block" id="modal-save-btn">Save Location</button>
-                    <a href="#" target="_blank" id="modal-book-btn" class="btn btn-outline btn-block book-link">Book Now</a>
-                </div>
-            </div>
+        <!-- Desktop Nav -->
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#how-it-works" class="text-sm text-gray-400 hover:text-cream transition-colors">How It Works</a>
+          <a href="#features" class="text-sm text-gray-400 hover:text-cream transition-colors">Features</a>
+          <a href="#discovery" class="text-sm text-gray-400 hover:text-cream transition-colors">Discovery</a>
         </div>
+        
+        <!-- CTA -->
+        <div class="flex items-center gap-4">
+         <a href="index.html" class="hidden sm:block text-sm text-gray-400 hover:text-cream transition-colors">Sign In</a>
+         <button 
+          class="btn-primary px-5 py-2.5 rounded-full text-sm font-semibold text-white"
+          onclick="window.location.href='index.html'"
+          >
+          Get Started
+        </button>
+        </div>
+      </div>
     </div>
+  </nav>
 
-    <script src="script.js"></script>
+  <!-- ======================= -->
+  <!-- HERO SECTION -->
+  <!-- ======================= -->
+  <section class="relative min-h-screen flex items-center hero-gradient noise-overlay overflow-hidden">
+    <!-- Background grid pattern -->
+    <div class="absolute inset-0 grid-pattern opacity-30"></div>
+    
+    <!-- Floating orbs -->
+    <div class="absolute top-1/4 left-10 w-64 h-64 rounded-full bg-teal-500/10 blur-3xl animate-pulse-glow"></div>
+    <div class="absolute bottom-1/4 right-10 w-80 h-80 rounded-full bg-coral/10 blur-3xl animate-pulse-glow" style="animation-delay: 2s;"></div>
+    <div class="absolute top-1/2 left-1/2 w-96 h-96 rounded-full bg-teal-400/5 blur-3xl"></div>
+    
+    <!-- Floating destination cards -->
+    <div class="absolute top-32 right-[10%] floating-card rounded-2xl p-4 w-56 animate-float hidden lg:block">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-12 h-12 rounded-xl overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=100&h=100&fit=crop" alt="Kyoto temple" class="w-full h-full object-cover">
+        </div>
+        <div>
+          <p class="text-xs text-gray-400">Perfect for you</p>
+          <p class="font-display font-medium text-sm">Kyoto, Japan</p>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-1.5">
+        <span class="tag px-2 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs">Vegetarian</span>
+        <span class="tag px-2 py-1 rounded-full bg-sage/20 text-sage text-xs">Temple Access</span>
+      </div>
+    </div>
+    
+    <div class="absolute bottom-40 left-[8%] floating-card rounded-2xl p-4 w-60 animate-float-delayed hidden lg:block">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-12 h-12 rounded-xl overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1580619305218-8423a7ef79b4?w=100&h=100&fit=crop" alt="Barcelona" class="w-full h-full object-cover">
+        </div>
+        <div>
+          <p class="text-xs text-gray-400">98% match</p>
+          <p class="font-display font-medium text-sm">Barcelona, Spain</p>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-1.5">
+        <span class="tag px-2 py-1 rounded-full bg-coral/20 text-coral text-xs">Kosher</span>
+        <span class="tag px-2 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs">Walkable</span>
+        <span class="tag px-2 py-1 rounded-full bg-gold/20 text-gold text-xs">Sabbath</span>
+      </div>
+    </div>
+    
+    <!-- Main content -->
+    <div class="relative z-10 max-w-7xl mx-auto px-6 pt-24 pb-16">
+      <div class="max-w-4xl">
+        <!-- Trust badge -->
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8 reveal" style="transition-delay: 0.1s;">
+          <span class="w-2 h-2 rounded-full bg-sage animate-pulse"></span>
+          <span class="text-sm text-gray-300">Built for modern, mindful travelers</span>
+        </div>
+        
+        <!-- Headline -->
+        <h1 class="font-display font-bold text-5xl sm:text-6xl lg:text-7xl text-cream leading-[1.1] mb-6 reveal" style="transition-delay: 0.2s;">
+          Travel that<br>
+          <span class="bg-gradient-to-r from-teal-400 via-teal-300 to-coral bg-clip-text text-transparent">understands</span> you
+        </h1>
+        
+        <!-- Subheadline -->
+        <p class="text-xl sm:text-2xl text-gray-400 max-w-2xl mb-10 reveal" style="transition-delay: 0.3s;">
+          Discover destinations, hotels, and experiences that align with your values, beliefs, and lifestyle. Not just where you go, but how you live.
+        </p>
+        
+        <!-- CTAs -->
+<div class="flex flex-col sm:flex-row gap-4 reveal" style="transition-delay: 0.4s;">
+  <button 
+    class="btn-primary px-8 py-4 rounded-full text-lg font-semibold text-white inline-flex items-center justify-center gap-2 group"
+    onclick="window.location.href='index.html'"
+  >
+    Start Your Journey
+    <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"> 
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+    </svg>
+  </button>
+
+  <button class="btn-secondary px-8 py-4 rounded-full text-lg font-medium text-cream inline-flex items-center justify-center gap-2">
+    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+    Watch Demo
+  </button>
+</div>
+        
+        <!-- Stats -->
+        <div class="flex flex-wrap gap-8 mt-16 pt-8 border-t border-white/10 reveal" style="transition-delay: 0.5s;">
+          <div>
+            <p class="font-display font-bold text-3xl text-cream">50K+</p>
+            <p class="text-sm text-gray-400">Curated destinations</p>
+          </div>
+          <div>
+            <p class="font-display font-bold text-3xl text-cream">12</p>
+            <p class="text-sm text-gray-400">Lifestyle categories</p>
+          </div>
+          <div>
+            <p class="font-display font-bold text-3xl text-cream">98%</p>
+            <p class="text-sm text-gray-400">Match satisfaction</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
+      <span class="text-xs text-gray-500">Scroll to explore</span>
+      <svg class="w-5 h-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- ======================= -->
+  <!-- HOW IT WORKS -->
+  <!-- ======================= -->
+  <section id="how-it-works" class="relative py-24 lg:py-32 bg-deep">
+    <div class="max-w-7xl mx-auto px-6">
+      <!-- Section header -->
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <p class="text-teal-400 font-medium mb-4 reveal">How It Works</p>
+        <h2 class="font-display font-bold text-4xl sm:text-5xl text-cream mb-6 reveal" style="transition-delay: 0.1s;">
+          Your journey in three steps
+        </h2>
+        <p class="text-lg text-gray-400 reveal" style="transition-delay: 0.2s;">
+          No endless searching. No compromise. Just travel that fits your life.
+        </p>
+      </div>
+      
+      <!-- Steps -->
+      <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
+        <!-- Step 1 -->
+        <div class="relative reveal" style="transition-delay: 0.3s;">
+          <div class="text-center md:text-left">
+            <span class="step-number font-display font-bold text-7xl">01</span>
+            <h3 class="font-display font-semibold text-2xl text-cream mt-4 mb-3">Create your profile</h3>
+            <p class="text-gray-400 leading-relaxed">
+              Tell us about your values, dietary needs, religious practices, and lifestyle preferences. One time, takes 3 minutes.
+            </p>
+          </div>
+          <!-- Connector line (hidden on mobile) -->
+          <div class="hidden md:block absolute top-12 left-[calc(100%-2rem)] w-16 h-px bg-gradient-to-r from-teal-500/50 to-transparent"></div>
+        </div>
+        
+        <!-- Step 2 -->
+        <div class="relative reveal" style="transition-delay: 0.4s;">
+          <div class="text-center md:text-left">
+            <span class="step-number font-display font-bold text-7xl">02</span>
+            <h3 class="font-display font-semibold text-2xl text-cream mt-4 mb-3">Share your preferences</h3>
+            <p class="text-gray-400 leading-relaxed">
+              From kosher dining to wheelchair accessibility, eco-conscious stays to prayer space access—every detail matters.
+            </p>
+          </div>
+          <div class="hidden md:block absolute top-12 left-[calc(100%-2rem)] w-16 h-px bg-gradient-to-r from-teal-500/50 to-transparent"></div>
+        </div>
+        
+        <!-- Step 3 -->
+        <div class="reveal" style="transition-delay: 0.5s;">
+          <div class="text-center md:text-left">
+            <span class="step-number font-display font-bold text-7xl">03</span>
+            <h3 class="font-display font-semibold text-2xl text-cream mt-4 mb-3">Get personalized matches</h3>
+            <p class="text-gray-400 leading-relaxed">
+              Swipe through your personalized discovery feed. Every destination is pre-vetted to match who you are.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= -->
+  <!-- PERSONALIZED FEATURES -->
+  <!-- ======================= -->
+  <section id="features" class="relative py-24 lg:py-32 bg-midnight noise-overlay">
+    <div class="absolute inset-0 grid-pattern opacity-20"></div>
+    
+    <div class="relative z-10 max-w-7xl mx-auto px-6">
+      <!-- Section header -->
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <p class="text-teal-400 font-medium mb-4 reveal">Personalized For You</p>
+        <h2 class="font-display font-bold text-4xl sm:text-5xl text-cream mb-6 reveal" style="transition-delay: 0.1s;">
+          Travel that respects your values
+        </h2>
+        <p class="text-lg text-gray-400 reveal" style="transition-delay: 0.2s;">
+          We've thought about the details other platforms overlook.
+        </p>
+      </div>
+      
+      <!-- Feature cards grid -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Kosher -->
+        <div class="feature-card rounded-2xl p-6 reveal" style="transition-delay: 0.3s;">
+          <div class="w-12 h-12 rounded-xl bg-coral/20 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-coral" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          </div>
+          <h3 class="font-display font-semibold text-xl text-cream mb-2">Kosher-Friendly Travel</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            Find hotels with kosher kitchen access, nearby certified restaurants, and eruv coverage for Shabbat observance.
+          </p>
+        </div>
+        
+        <!-- Sabbath -->
+        <div class="feature-card rounded-2xl p-6 reveal" style="transition-delay: 0.35s;">
+          <div class="w-12 h-12 rounded-xl bg-gold/20 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+          </div>
+          <h3 class="font-display font-semibold text-xl text-cream mb-2">Sabbath-Aware Stays</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            Hotels that understand Shabbat needs—automatic door access, walkable synagogues, and no Friday check-in conflicts.
+          </p>
+        </div>
+        
+        <!-- Eco -->
+        <div class="feature-card rounded-2xl p-6 reveal" style="transition-delay: 0.4s;">
+          <div class="w-12 h-12 rounded-xl bg-sage/20 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-sage" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064" />
+            </svg>
+          </div>
+          <h3 class="font-display font-semibold text-xl text-cream mb-2">Eco-Conscious Hotels</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            Verified sustainable properties with green certifications, carbon offset options, and responsible tourism practices.
+          </p>
+        </div>
+        
+        <!-- Accessibility -->
+        <div class="feature-card rounded-2xl p-6 reveal" style="transition-delay: 0.45s;">
+          <div class="w-12 h-12 rounded-xl bg-teal-500/20 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="font-display font-semibold text-xl text-cream mb-2">Accessible Travel</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            Detailed accessibility info—wheelchair access, visual/hearing accommodations, and mobility-friendly experiences.
+          </p>
+        </div>
+        
+        <!-- Dietary -->
+        <div class="feature-card rounded-2xl p-6 reveal" style="transition-delay: 0.5s;">
+          <div class="w-12 h-12 rounded-xl bg-teal-300/20 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-teal-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+            </svg>
+          </div>
+          <h3 class="font-display font-semibold text-xl text-cream mb-2">Dietary-Specific Experiences</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            Vegan, fresh, gluten-free, allergen-aware—find destinations where your dietary needs are celebrated, not accommodated.
+          </p>
+        </div>
+        
+        <!-- Cultural -->
+        <div class="feature-card rounded-2xl p-6 reveal" style="transition-delay: 0.55s;">
+          <div class="w-12 h-12 rounded-xl bg-purple-400/20 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+          <h3 class="font-display font-semibold text-xl text-cream mb-2">Cultural Alignment</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            Connect with communities that share your values. Prayer spaces, cultural centers, and like-minded local networks.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= -->
+  <!-- DISCOVERY FEED PREVIEW -->
+  <!-- ======================= -->
+  <section id="discovery" class="relative py-24 lg:py-32 bg-deep overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <!-- Text content -->
+        <div class="order-2 lg:order-1">
+          <p class="text-teal-400 font-medium mb-4 reveal">Discovery Feed</p>
+          <h2 class="font-display font-bold text-4xl sm:text-5xl text-cream mb-6 reveal" style="transition-delay: 0.1s;">
+            Swipe through travel that gets you
+          </h2>
+          <p class="text-lg text-gray-400 mb-8 reveal" style="transition-delay: 0.2s;">
+            Forget endless filters and search results. Your personalized feed shows you destinations that match your lifestyle—with clear explanations of why each one is perfect for you.
+          </p>
+          
+          <!-- Feature list -->
+          <div class="space-y-4 reveal" style="transition-delay: 0.3s;">
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full bg-sage/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-4 h-4 text-sage" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div>
+                <p class="font-medium text-cream">Smart matching algorithm</p>
+                <p class="text-sm text-gray-400">AI-powered recommendations based on your complete profile</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full bg-sage/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-4 h-4 text-sage" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div>
+                <p class="font-medium text-cream">Clear match explanations</p>
+                <p class="text-sm text-gray-400">See exactly why each destination fits your needs</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full bg-sage/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-4 h-4 text-sage" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div>
+                <p class="font-medium text-cream">Save and compare</p>
+                <p class="text-sm text-gray-400">Build collections of favorite destinations for later</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Phone mockup -->
+        <div class="order-1 lg:order-2 flex justify-center reveal" style="transition-delay: 0.2s;">
+          <div class="phone-frame rounded-[3rem] p-3 w-[300px] sm:w-[320px]">
+            <div class="phone-screen rounded-[2.5rem] overflow-hidden">
+              <!-- Phone notch -->
+              <div class="h-8 bg-midnight flex items-center justify-center">
+                <div class="w-20 h-5 rounded-full bg-midnight border border-white/10"></div>
+              </div>
+              
+              <!-- Screen content -->
+              <div class="bg-midnight p-4 space-y-4">
+                <!-- Header -->
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-xs text-gray-500">Your matches</p>
+                    <p class="font-display font-semibold text-cream">Discover</p>
+                  </div>
+                  <div class="w-8 h-8 rounded-full bg-teal-500/20 flex items-center justify-center">
+                    <span class="text-xs font-semibold text-teal-400">JD</span>
+                  </div>
+                </div>
+                
+                <!-- Destination card -->
+                <div class="rounded-2xl overflow-hidden bg-slate">
+                  <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400&h=200&fit=crop" alt="Marrakech" class="w-full h-32 object-cover">
+                  <div class="p-3">
+                    <div class="flex items-center justify-between mb-2">
+                      <p class="font-display font-medium text-cream text-sm">Marrakech, Morocco</p>
+                      <span class="text-xs text-teal-400 font-medium">94% match</span>
+                    </div>
+                    <!-- Tags -->
+                    <div class="flex flex-wrap gap-1 mb-2">
+                      <span class="tag px-2 py-0.5 rounded-full bg-coral/20 text-coral text-xs">Halal</span>
+                      <span class="tag px-2 py-0.5 rounded-full bg-sage/20 text-sage text-xs">Eco</span>
+                      <span class="tag px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-300 text-xs">Walkable</span>
+                    </div>
+                    <!-- Why it matches -->
+                    <div class="bg-midnight/50 rounded-lg p-2">
+                      <p class="text-xs text-gray-400">
+                        <span class="text-teal-400 font-medium">Why this matches:</span> Multiple halal restaurants within walking distance, eco-certified riads available, prayer spaces in medina.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Action buttons -->
+                <div class="flex items-center justify-center gap-6 pt-2">
+                  <button class="w-12 h-12 rounded-full bg-slate flex items-center justify-center text-gray-400 hover:text-coral transition-colors" aria-label="Skip">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                  <button class="w-14 h-14 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center text-white shadow-lg shadow-teal-500/30" aria-label="Save">
+                    <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                  </button>
+                  <button class="w-12 h-12 rounded-full bg-slate flex items-center justify-center text-gray-400 hover:text-teal-400 transition-colors" aria-label="More info">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= -->
+  <!-- WHY AIRFINITY / DIFFERENTIATION -->
+  <!-- ======================= -->
+  <section class="relative py-24 lg:py-32 bg-midnight noise-overlay">
+    <div class="absolute inset-0 grid-pattern opacity-20"></div>
+    
+    <div class="relative z-10 max-w-7xl mx-auto px-6">
+      <div class="text-center max-w-3xl mx-auto">
+        <p class="text-teal-400 font-medium mb-4 reveal">Why Airfinity</p>
+        <h2 class="font-display font-bold text-4xl sm:text-5xl text-cream mb-6 reveal" style="transition-delay: 0.1s;">
+          Not just where you go,<br>but how you live
+        </h2>
+        <p class="text-lg text-gray-400 mb-16 reveal" style="transition-delay: 0.2s;">
+          Traditional booking platforms ask "where do you want to go?" We ask "who are you, and how can travel enhance your life?"
+        </p>
+      </div>
+      
+      <!-- Comparison -->
+      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <!-- Traditional platforms -->
+        <div class="rounded-2xl p-6 bg-slate/50 border border-white/5 reveal" style="transition-delay: 0.3s;">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-lg bg-gray-700/50 flex items-center justify-center">
+              <svg class="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+            <p class="font-display font-medium text-gray-400">Traditional platforms</p>
+          </div>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-3 text-gray-500">
+              <svg class="w-5 h-5 text-coral" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+              <span>Search-based, filter-heavy</span>
+            </li>
+            <li class="flex items-center gap-3 text-gray-500">
+              <svg class="w-5 h-5 text-coral" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+              <span>Generic "accessible" labels</span>
+            </li>
+            <li class="flex items-center gap-3 text-gray-500">
+              <svg class="w-5 h-5 text-coral" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+              <span>Price-first ranking</span>
+            </li>
+            <li class="flex items-center gap-3 text-gray-500">
+              <svg class="w-5 h-5 text-coral" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+              <span>You adapt to the destination</span>
+            </li>
+          </ul>
+        </div>
+        
+        <!-- Airfinity -->
+        <div class="rounded-2xl p-6 bg-gradient-to-br from-teal-900/30 to-slate/50 border border-teal-500/20 reveal" style="transition-delay: 0.4s;">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-lg bg-teal-500/20 flex items-center justify-center">
+              <svg class="w-5 h-5 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+              </svg>
+            </div>
+            <p class="font-display font-medium text-teal-300">Airfinity</p>
+          </div>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-3 text-gray-300">
+              <svg class="w-5 h-5 text-sage" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Discovery feed, swipe-based</span>
+            </li>
+            <li class="flex items-center gap-3 text-gray-300">
+              <svg class="w-5 h-5 text-sage" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Detailed lifestyle compatibility</span>
+            </li>
+            <li class="flex items-center gap-3 text-gray-300">
+              <svg class="w-5 h-5 text-sage" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Values-first matching</span>
+            </li>
+            <li class="flex items-center gap-3 text-gray-300">
+              <svg class="w-5 h-5 text-sage" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Destination adapts to you</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= -->
+  <!-- TESTIMONIALS -->
+  <!-- ======================= -->
+  <section class="relative py-24 lg:py-32 bg-deep">
+    <div class="max-w-7xl mx-auto px-6">
+      <!-- Section header -->
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <p class="text-teal-400 font-medium mb-4 reveal">Traveler Stories</p>
+        <h2 class="font-display font-bold text-4xl sm:text-5xl text-cream mb-6 reveal" style="transition-delay: 0.1s;">
+          Designed for travelers with values
+        </h2>
+      </div>
+      
+      <!-- Testimonial cards -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="testimonial-card rounded-2xl p-6 reveal" style="transition-delay: 0.2s;">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-coral to-gold"></div>
+            <div>
+              <p class="font-medium text-cream">Sarah M.</p>
+              <p class="text-xs text-gray-500">Observant Jewish traveler</p>
+            </div>
+          </div>
+          <p class="text-gray-300 text-sm leading-relaxed">
+            "For the first time, I didn't have to call ahead to ask about Shabbat accommodations. Every suggestion already had eruv info and synagogue proximity. Game changer."
+          </p>
+        </div>
+        
+        <div class="testimonial-card rounded-2xl p-6 reveal" style="transition-delay: 0.3s;">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-teal-400 to-sage"></div>
+            <div>
+              <p class="font-medium text-cream">Luke.</p>
+              <p class="text-xs text-gray-500">Eco-conscious explorer</p>
+            </div>
+          </div>
+          <p class="text-gray-300 text-sm leading-relaxed">
+            "Finally found halal-friendly destinations that also align with my sustainability values. The matching is spot-on—I discovered places I never would have found otherwise."
+          </p>
+        </div>
+        
+        <div class="testimonial-card rounded-2xl p-6 reveal" style="transition-delay: 0.4s;">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-teal-400"></div>
+            <div>
+              <p class="font-medium text-cream">Maria L.</p>
+              <p class="text-xs text-gray-500">Vegan + accessibility needs</p>
+            </div>
+          </div>
+          <p class="text-gray-300 text-sm leading-relaxed">
+            "As a wheelchair user who's also vegan, travel planning was always exhausting. Airfinity shows me exactly what I need upfront. No more surprises at check-in."
+          </p>
+        </div>
+      </div>
+      
+      <!-- Trust badges -->
+      <div class="flex flex-wrap justify-center items-center gap-8 mt-16 pt-12 border-t border-white/10 reveal" style="transition-delay: 0.5s;">
+        <div class="text-center">
+          <p class="font-display font-bold text-2xl text-cream">4.9</p>
+          <p class="text-xs text-gray-500">App Store Rating</p>
+        </div>
+        <div class="w-px h-8 bg-white/10 hidden sm:block"></div>
+        <div class="text-center">
+          <p class="font-display font-bold text-2xl text-cream">50K+</p>
+          <p class="text-xs text-gray-500">Active Travelers</p>
+        </div>
+        <div class="w-px h-8 bg-white/10 hidden sm:block"></div>
+        <div class="text-center">
+          <p class="font-display font-bold text-2xl text-cream">180+</p>
+          <p class="text-xs text-gray-500">Countries Covered</p>
+        </div>
+        <div class="w-px h-8 bg-white/10 hidden sm:block"></div>
+        <div class="text-center">
+          <p class="font-display font-bold text-2xl text-cream">12</p>
+          <p class="text-xs text-gray-500">Lifestyle Categories</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= -->
+  <!-- FINAL CTA -->
+  <!-- ======================= -->
+  <section class="relative py-24 lg:py-32 bg-midnight noise-overlay overflow-hidden">
+    <div class="absolute inset-0 grid-pattern opacity-20"></div>
+    
+    <!-- Background elements -->
+    <div class="absolute top-0 left-1/4 w-96 h-96 rounded-full bg-teal-500/10 blur-3xl"></div>
+    <div class="absolute bottom-0 right-1/4 w-80 h-80 rounded-full bg-coral/10 blur-3xl"></div>
+    
+    <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+      <h2 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-cream mb-6 reveal">
+        Travel should fit your life—<br>
+        <span class="text-teal-400">not the other way around.</span>
+      </h2>
+      <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto reveal" style="transition-delay: 0.1s;">
+        Join thousands of travelers who've found a better way to discover the world. Build your profile in under 3 minutes.
+      </p>
+      
+      <div class="flex flex-col sm:flex-row gap-4 justify-center reveal" style="transition-delay: 0.2s;">
+  <button 
+    class="btn-primary px-10 py-4 rounded-full text-lg font-semibold text-white inline-flex items-center justify-center gap-2 group"
+    onclick="window.location.href='index.html'"
+  >
+    Build Your Travel Profile
+    <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+    </svg>
+  </button>
+</div>
+      <p class="text-sm text-gray-500 mt-6 reveal" style="transition-delay: 0.3s;">
+        Free to use. No credit card required.
+      </p>
+    </div>
+  </section>
+
+  <!-- ======================= -->
+  <!-- FOOTER -->
+  <!-- ======================= -->
+  <footer class="bg-midnight border-t border-white/5 py-12">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <!-- Brand -->
+        <div class="lg:col-span-2">
+          <a href="#" class="flex items-center gap-2 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <span class="font-display font-semibold text-xl text-cream">Airfinity</span>
+          </a>
+          <p class="text-sm text-gray-500 max-w-xs">
+            Travel discovery that understands your values, beliefs, and lifestyle preferences.
+          </p>
+        </div>
+        
+        <!-- Links -->
+        <div>
+          <p class="font-medium text-cream mb-4">Product</p>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-sm text-gray-500 hover:text-teal-400 transition-colors">How it works</a></li>
+            <li><a href="#" class="text-sm text-gray-500 hover:text-teal-400 transition-colors">Features</a></li>
+            <li><a href="#" class="text-sm text-gray-500 hover:text-teal-400 transition-colors">Pricing</a></li>
+            <li><a href="#" class="text-sm text-gray-500 hover:text-teal-400 transition-colors">Download app</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <p class="font-medium text-cream mb-4">Company</p>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-sm text-gray-500 hover:text-teal-400 transition-colors">About us</a></li>
+            <li><a href="#" class="text-sm text-gray-500 hover:text-teal-400 transition-colors">Careers</a></li>
+            <li><a href="#" class="text-sm text-gray-500 hover:text-teal-400 transition-colors">Press</a></li>
+            <li><a href="#" class="text-sm text-gray-500 hover:text-teal-400 transition-colors">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Bottom -->
+      <div class="flex flex-col sm:flex-row items-center justify-between pt-8 border-t border-white/5">
+        <p class="text-sm text-gray-500 mb-4 sm:mb-0">2026 Airfinity Travel. All rights reserved.</p>
+        <div class="flex items-center gap-6">
+          <a href="#" class="text-sm text-gray-500 hover:text-teal-400 transition-colors">Privacy</a>
+          <a href="#" class="text-sm text-gray-500 hover:text-teal-400 transition-colors">Terms</a>
+          <a href="#" class="text-sm text-gray-500 hover:text-teal-400 transition-colors">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ======================= -->
+  <!-- JAVASCRIPT -->
+  <!-- ======================= -->
+  <script>
+    // Initialize variables first
+    const navbar = document.getElementById('navbar');
+    let lastScroll = 0;
+    
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    // Scroll reveal using IntersectionObserver
+    if (!prefersReducedMotion) {
+      const revealElements = document.querySelectorAll('.reveal, .reveal-left');
+      
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      });
+      
+      revealElements.forEach((el) => revealObserver.observe(el));
+    } else {
+      // If reduced motion is preferred, make all elements visible immediately
+      document.querySelectorAll('.reveal, .reveal-left').forEach((el) => {
+        el.classList.add('visible');
+      });
+    }
+    
+    // Navbar background on scroll
+    function handleNavbarScroll() {
+      const currentScroll = window.pageYOffset;
+      
+      if (currentScroll > 50) {
+        navbar.style.background = 'rgba(10, 15, 28, 0.95)';
+        navbar.style.backdropFilter = 'blur(12px)';
+        navbar.style.borderBottom = '1px solid rgba(255, 255, 255, 0.05)';
+      } else {
+        navbar.style.background = 'transparent';
+        navbar.style.backdropFilter = 'none';
+        navbar.style.borderBottom = 'none';
+      }
+      
+      lastScroll = currentScroll;
+    }
+    
+    window.addEventListener('scroll', handleNavbarScroll, { passive: true });
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const target = document.querySelector(targetId);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({
+            behavior: prefersReducedMotion ? 'auto' : 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+    
+    // Parallax effect for floating cards (desktop only, no motion preference)
+    if (!prefersReducedMotion && window.innerWidth >= 1024) {
+      let ticking = false;
+      
+      document.addEventListener('mousemove', (e) => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            const cards = document.querySelectorAll('.floating-card');
+            const mouseX = (e.clientX / window.innerWidth - 0.5) * 20;
+            const mouseY = (e.clientY / window.innerHeight - 0.5) * 20;
+            
+            cards.forEach((card, index) => {
+              const factor = index === 0 ? 1 : -0.7;
+              card.style.transform = `translate(${mouseX * factor}px, ${mouseY * factor}px)`;
+            });
+            
+            ticking = false;
+          });
+          ticking = true;
+        }
+      });
+    }
+    
+    // Button ripple effect
+    document.querySelectorAll('.btn-primary').forEach((btn) => {
+      btn.addEventListener('click', function(e) {
+        const rect = this.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const ripple = document.createElement('span');
+        ripple.style.cssText = `
+          position: absolute;
+          background: rgba(255, 255, 255, 0.3);
+          border-radius: 50%;
+          transform: scale(0);
+          animation: ripple 0.6s linear;
+          left: ${x}px;
+          top: ${y}px;
+          width: 100px;
+          height: 100px;
+          margin-left: -50px;
+          margin-top: -50px;
+          pointer-events: none;
+        `;
+        
+        this.style.position = 'relative';
+        this.style.overflow = 'hidden';
+        this.appendChild(ripple);
+        
+        setTimeout(() => ripple.remove(), 600);
+      });
+    });
+    
+    // Add ripple animation keyframes dynamically
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes ripple {
+        to {
+          transform: scale(4);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+    
+    // Initial navbar state
+    handleNavbarScroll();
+  </script>
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Airfinity Travel — Travel That Understands You</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Space Grotesk', 'sans-serif'],
+            body: ['DM Sans', 'sans-serif'],
+          },
+          colors: {
+            midnight: '#0a0f1c',
+            deep: '#121829',
+            slate: '#1e2640',
+            cream: '#faf9f6',
+            teal: {
+              50: '#effcfc',
+              100: '#d7f6f6',
+              200: '#b4ebec',
+              300: '#80dbdd',
+              400: '#44c2c6',
+              500: '#28a7ad',
+              600: '#23858d',
+              700: '#236c73',
+              800: '#245a60',
+              900: '#224b50',
+            },
+            coral: '#e07a5f',
+            sage: '#84cc16',
+            gold: '#d4a373',
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    :root {
+      --bg: #0a0f1c;
+      --bg-elevated: #121829;
+      --fg: #faf9f6;
+      --fg-muted: #9ca3af;
+      --accent: #28a7ad;
+      --accent-light: #44c2c6;
+      --coral: #e07a5f;
+      --sage: #84cc16;
+      --gold: #d4a373;
+      --card: #1e2640;
+      --border: #2d3555;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      overflow-x: hidden;
+    }
+    
+    /* Typography Scale */
+    .font-display {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent);
+    }
+    
+    /* Animations */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(1deg); }
+    }
+    
+    @keyframes float-delayed {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-15px) rotate(-1deg); }
+    }
+    
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.05); }
+    }
+    
+    @keyframes slide-up {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes slide-in-left {
+      from {
+        opacity: 0;
+        transform: translateX(-40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes fade-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes tag-pop {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    @keyframes gradient-shift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .animate-float-delayed {
+      animation: float-delayed 7s ease-in-out infinite;
+      animation-delay: 1s;
+    }
+    
+    .animate-pulse-glow {
+      animation: pulse-glow 4s ease-in-out infinite;
+    }
+    
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+      .animate-float,
+      .animate-float-delayed,
+      .animate-pulse-glow {
+        animation: none;
+      }
+      .reveal,
+      .reveal-left {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+    
+    /* Hero background layers */
+    .hero-gradient {
+      background: 
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(40, 167, 173, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 80% 60%, rgba(224, 122, 95, 0.1) 0%, transparent 40%),
+        radial-gradient(ellipse 50% 30% at 20% 80%, rgba(132, 204, 22, 0.08) 0%, transparent 40%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-elevated) 100%);
+    }
+    
+    /* Noise texture overlay */
+    .noise-overlay::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+      background-size: cover;
+      pointer-events: none;
+    }
+    
